@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CityZen — Product Proposal v1.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a18;
+    --ink-2: #4a4a46;
+    --ink-3: #8a8a84;
+    --paper: #faf9f6;
+    --paper-2: #f2f0eb;
+    --paper-3: #e8e5de;
+    --accent: #e35c2e;
+    --accent-2: #f5a94e;
+    --blue: #2a6dd9;
+    --teal: #1d9e75;
+    --rule: rgba(26,26,24,0.12);
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'Sarabun', sans-serif;
+    --mono: 'Space Mono', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Cover ── */
+  .cover {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    padding: 80px 80px 60px;
+    position: relative;
+    overflow: hidden;
+    background: var(--ink);
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -80px;
+    width: 520px; height: 520px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.08;
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: 40px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: var(--accent-2);
+    opacity: 0.06;
+  }
+  .cover-top {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 32px;
+  }
+  .cover-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .cover-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 32px; height: 1px;
+    background: var(--accent);
+  }
+  .cover h1 {
+    font-family: var(--serif);
+    font-size: clamp(52px, 8vw, 96px);
+    line-height: 1.0;
+    color: var(--paper);
+    letter-spacing: -0.02em;
+  }
+  .cover h1 em {
+    font-style: italic;
+    color: var(--accent-2);
+  }
+  .cover-tagline {
+    font-size: 17px;
+    color: rgba(250,249,246,0.55);
+    max-width: 560px;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+  .cover-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-top: 0.5px solid rgba(250,249,246,0.15);
+    padding-top: 28px;
+  }
+  .cover-meta-left { display: flex; flex-direction: column; gap: 4px; }
+  .cover-meta-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; color: rgba(250,249,246,0.3); text-transform: uppercase; }
+  .cover-meta-value { font-size: 13px; color: rgba(250,249,246,0.7); font-weight: 300; }
+  .cover-badge {
+    background: var(--accent);
+    color: white;
+    padding: 8px 18px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 2px;
+  }
+
+  /* ── Layout ── */
+  .doc {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 80px 60px 120px;
+  }
+
+  /* ── Section ── */
+  .section { margin-bottom: 80px; }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: var(--rule);
+  }
+  h2 {
+    font-family: var(--serif);
+    font-size: 36px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 28px;
+  }
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 32px 0 12px;
+    letter-spacing: -0.01em;
+  }
+  p { margin-bottom: 16px; color: var(--ink-2); }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── Overview cards ── */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 0.5px solid var(--rule);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+  .overview-card {
+    background: var(--paper);
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .overview-card:hover { background: var(--paper-2); }
+  .ov-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 4px;
+    font-size: 18px;
+  }
+  .ov-icon.orange { background: rgba(227,92,46,0.1); }
+  .ov-icon.blue { background: rgba(42,109,217,0.1); }
+  .ov-icon.teal { background: rgba(29,158,117,0.1); }
+  .ov-num {
+    font-family: var(--serif);
+    font-size: 32px;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .ov-label { font-size: 12px; color: var(--ink-3); font-weight: 400; }
+
+  /* ── Feature blocks ── */
+  .feature-block {
+    border: 0.5px solid var(--rule);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .feature-header {
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 0.5px solid var(--rule);
+    background: var(--paper-2);
+  }
+  .feature-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-orange { background: var(--accent); }
+  .dot-blue { background: var(--blue); }
+  .dot-teal { background: var(--teal); }
+  .feature-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    flex: 1;
+  }
+  .feature-tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    padding: 3px 10px;
+    border-radius: 2px;
+    text-transform: uppercase;
+  }
+  .tag-admin { background: rgba(227,92,46,0.12); color: var(--accent); }
+  .tag-public { background: rgba(29,158,117,0.12); color: var(--teal); }
+  .tag-realtime { background: rgba(42,109,217,0.12); color: var(--blue); }
+  .feature-body { padding: 20px 28px; }
+  .feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .feature-list li {
+    display: flex;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--ink-2);
+    line-height: 1.5;
+  }
+  .feature-list li::before {
+    content: '→';
+    color: var(--ink-3);
+    flex-shrink: 0;
+    margin-top: 0;
+  }
+  .feature-api {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: var(--paper-2);
+    border-radius: 6px;
+    border-left: 2px solid var(--accent);
+  }
+  .feature-api-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+  .feature-api code {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-2);
+    display: block;
+    line-height: 1.8;
+  }
+  .feature-api code span { color: var(--accent); }
+
+  /* ── Architecture diagram ── */
+  .arch-wrap {
+    border: 0.5px solid var(--rule);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--ink);
+    padding: 40px 40px;
+    margin-bottom: 40px;
+    position: relative;
+  }
+  .arch-wrap::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -60px;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.06;
+  }
+  .arch-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: rgba(250,249,246,0.35);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-bottom: 32px;
+  }
+  .arch-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 8px;
+    align-items: stretch;
+    position: relative;
+    z-index: 1;
+  }
+  .arch-connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+  }
+  .arch-connector span {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: rgba(250,249,246,0.2);
+  }
+  .arch-box {
+    border: 0.5px solid rgba(250,249,246,0.12);
+    border-radius: 8px;
+    padding: 14px 18px;
+    flex: 1;
+    min-width: 0;
+  }
+  .arch-box-head {
+    font-family: var(--mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+  .arch-box-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(250,249,246,0.85);
+    line-height: 1.3;
+  }
+  .ab-orange { background: rgba(227,92,46,0.12); border-color: rgba(227,92,46,0.3); }
+  .ab-orange .arch-box-head { color: #e35c2e; }
+  .ab-blue { background: rgba(42,109,217,0.12); border-color: rgba(42,109,217,0.3); }
+  .ab-blue .arch-box-head { color: #6b9ef7; }
+  .ab-teal { background: rgba(29,158,117,0.12); border-color: rgba(29,158,117,0.3); }
+  .ab-teal .arch-box-head { color: #5dd4a8; }
+  .ab-gray { background: rgba(250,249,246,0.04); }
+  .ab-gray .arch-box-head { color: rgba(250,249,246,0.3); }
+  .arch-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .arch-divider-line { flex: 1; height: 0.5px; background: rgba(250,249,246,0.08); }
+  .arch-divider-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: rgba(250,249,246,0.2);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+  .arch-arrow-row {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    margin: 4px 0;
+  }
+  .arch-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  .arch-arrow-line {
+    width: 0.5px;
+    height: 18px;
+    background: rgba(250,249,246,0.15);
+  }
+  .arch-arrow-tip {
+    font-size: 10px;
+    color: rgba(250,249,246,0.2);
+  }
+  .arch-arrow-label {
+    font-family: var(--mono);
+    font-size: 8px;
+    color: rgba(250,249,246,0.25);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── DB Schema visual ── */
+  .schema-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .schema-table {
+    border: 0.5px solid var(--rule);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .schema-table-head {
+    background: var(--paper-2);
+    padding: 10px 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ink);
+    border-bottom: 0.5px solid var(--rule);
+  }
+  .schema-table-head span {
+    font-weight: 400;
+    color: var(--ink-3);
+    font-size: 9px;
+    margin-left: 6px;
+  }
+  .schema-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 16px;
+    border-bottom: 0.5px solid var(--rule);
+    font-size: 12px;
+  }
+  .schema-row:last-child { border-bottom: none; }
+  .schema-field { color: var(--ink-2); font-family: var(--mono); font-size: 11px; }
+  .schema-type { color: var(--ink-3); font-size: 10px; font-family: var(--mono); }
+  .schema-badge {
+    font-size: 9px;
+    font-family: var(--mono);
+    padding: 1px 6px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .sb-pk { background: rgba(227,92,46,0.12); color: var(--accent); }
+  .sb-fk { background: rgba(42,109,217,0.1); color: var(--blue); }
+
+  /* ── Timeline ── */
+  .timeline { margin-top: 16px; }
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 28px;
+    position: relative;
+    padding-bottom: 40px;
+  }
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 140px;
+    top: 28px;
+    bottom: 0;
+    width: 0.5px;
+    background: var(--rule);
+  }
+  .timeline-item:last-child::before { display: none; }
+  .timeline-left { text-align: right; padding-top: 4px; }
+  .timeline-phase {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+  .timeline-dur {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .timeline-right {
+    position: relative;
+    padding-left: 32px;
+  }
+  .timeline-dot {
+    position: absolute;
+    left: -6px;
+    top: 6px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--paper);
+    box-shadow: 0 0 0 0.5px var(--rule);
+  }
+  .td-1 { background: var(--accent); }
+  .td-2 { background: var(--blue); }
+  .td-3 { background: var(--teal); }
+  .td-4 { background: var(--accent-2); }
+  .timeline-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .timeline-items-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .timeline-items-list li {
+    font-size: 13px;
+    color: var(--ink-2);
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .timeline-items-list li::before {
+    content: '·';
+    color: var(--ink-3);
+    font-size: 16px;
+    line-height: 1.2;
+    flex-shrink: 0;
+  }
+
+  /* ── Tech stack ── */
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .tech-card {
+    border: 0.5px solid var(--rule);
+    border-radius: 8px;
+    padding: 16px 16px;
+    background: var(--paper);
+  }
+  .tech-card:hover { background: var(--paper-2); }
+  .tech-cat {
+    font-family: var(--mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-3);
+    margin-bottom: 8px;
+  }
+  .tech-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .tech-note { font-size: 11px; color: var(--ink-3); line-height: 1.4; }
+
+  /* ── Highlight callout ── */
+  .callout {
+    border-left: 2px solid var(--accent);
+    padding: 20px 24px;
+    background: rgba(227,92,46,0.05);
+    border-radius: 0 8px 8px 0;
+    margin: 28px 0;
+  }
+  .callout p { color: var(--ink-2); font-size: 14px; margin: 0; }
+  .callout strong { color: var(--ink); }
+
+  /* ── RLS table ── */
+  .rls-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-bottom: 24px;
+  }
+  .rls-table th {
+    text-align: left;
+    padding: 10px 16px;
+    background: var(--paper-2);
+    border-bottom: 0.5px solid var(--rule);
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--ink);
+  }
+  .rls-table td {
+    padding: 10px 16px;
+    border-bottom: 0.5px solid var(--rule);
+    color: var(--ink-2);
+    vertical-align: top;
+  }
+  .rls-table tr:last-child td { border-bottom: none; }
+  .rls-table code {
+    font-family: var(--mono);
+    font-size: 11px;
+    background: var(--paper-2);
+    padding: 1px 6px;
+    border-radius: 3px;
+    color: var(--accent);
+  }
+  .perm-yes { color: var(--teal); font-weight: 600; font-size: 12px; }
+  .perm-no { color: var(--ink-3); font-size: 12px; }
+  .perm-limit { color: var(--accent-2); font-size: 12px; }
+
+  /* ── Footer ── */
+  .footer {
+    border-top: 0.5px solid var(--rule);
+    padding: 40px 60px;
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-logo {
+    font-family: var(--serif);
+    font-size: 20px;
+    color: var(--ink);
+  }
+  .footer-logo em { font-style: italic; color: var(--accent); }
+  .footer-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-3);
+    text-align: right;
+    line-height: 1.8;
+  }
+
+  @media print {
+    .cover { min-height: 100vh; }
+    .section { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── COVER ── -->
+<div class="cover">
+  <div class="cover-top">
+    <div class="cover-eyebrow">Thunder Core Platform · Product Proposal</div>
+    <h1>City<em>Zen</em></h1>
+    <p class="cover-tagline">
+      แพลตฟอร์มข้อมูลเมืองสำหรับประชาชน — เริ่มจาก MVP ที่ให้ทุกคนเห็นสถานะน้ำมัน สถานการณ์ฉุกเฉิน
+      และทุกความเคลื่อนไหวในพื้นที่ผ่านแผนที่แบบ Real-time
+    </p>
+  </div>
+  <div class="cover-meta">
+    <div style="display:flex; gap: 48px;">
+      <div class="cover-meta-left">
+        <span class="cover-meta-label">Version</span>
+        <span class="cover-meta-value">MVP v1.0</span>
+      </div>
+      <div class="cover-meta-left">
+        <span class="cover-meta-label">Base Platform</span>
+        <span class="cover-meta-value">Thunder Core · thundercore.vercel.app</span>
+      </div>
+      <div class="cover-meta-left">
+        <span class="cover-meta-label">Date</span>
+        <span class="cover-meta-value">30 มีนาคม 2569</span>
+      </div>
+    </div>
+    <div class="cover-badge">Proposal Doc</div>
+  </div>
+</div>
+
+<!-- ── DOCUMENT BODY ── -->
+<div class="doc">
+
+  <!-- 01 Overview -->
+  <div class="section">
+    <div class="section-label">01 — Executive Summary</div>
+    <h2>CityZen คืออะไร</h2>
+    <p>
+      CityZen คือ <strong>City Intelligence Platform</strong> ที่สร้างบนโครงสร้างของ Thunder Core Platform
+      เป้าหมายคือเป็นช่องทางกลางให้ประชาชนเข้าถึงข้อมูลเมืองแบบ Real-time — ตั้งแต่สถานะน้ำมัน
+      ภัยพิบัติ น้ำท่วม ไปจนถึงข้อมูลสาธารณูปโภคต่าง ๆ ในพื้นที่ที่ตนเองอยู่
+    </p>
+    <p>
+      สำหรับ MVP รอบนี้ โฟกัสอยู่ที่ <strong>2 ส่วนหลัก:</strong> (1) Admin Dashboard สำหรับเจ้าหน้าที่
+      จัดการข้อมูลปั๊มน้ำมัน และ (2) Public Map Interface สำหรับประชาชนทั่วไปดูสถานะแบบ Real-time
+    </p>
+
+    <div class="overview-grid" style="margin-top:36px;">
+      <div class="overview-card">
+        <div class="ov-icon orange">🗺️</div>
+        <div class="ov-num">2</div>
+        <div class="ov-label">User Interfaces (Admin + Public)</div>
+      </div>
+      <div class="overview-card">
+        <div class="ov-icon blue">🔌</div>
+        <div class="ov-num">8+</div>
+        <div class="ov-label">API Endpoints จาก Thunder Core</div>
+      </div>
+      <div class="overview-card">
+        <div class="ov-icon teal">⚡</div>
+        <div class="ov-num">Real-time</div>
+        <div class="ov-label">Supabase Realtime Subscriptions</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 Scope -->
+  <div class="section">
+    <div class="section-label">02 — MVP Scope</div>
+    <h2>ขอบเขต MVP</h2>
+    <p>MVP แบ่งออกเป็น 2 Product Track ที่ทำงานบนฐานข้อมูลและ API ชุดเดียวกันของ Thunder Core</p>
+
+    <!-- Admin Side -->
+    <h3>Track A — Admin Dashboard (Staff Portal)</h3>
+    <p style="margin-bottom:20px;">
+      หน้าจัดการสำหรับ Tenant Staff (เจ้าหน้าที่ปั๊มหรือผู้ดูแลระบบ) ในการอัปเดตและบริหารข้อมูลปั๊มน้ำมัน
+    </p>
+
+    <div class="feature-block">
+      <div class="feature-header">
+        <div class="feature-dot dot-orange"></div>
+        <span class="feature-title">Station Management — จัดการข้อมูลปั๊มน้ำมัน</span>
+        <span class="feature-tag tag-admin">Admin</span>
+      </div>
+      <div class="feature-body">
+        <ul class="feature-list">
+          <li>ตั้งค่า Location ของปั๊ม (lat/lng) พร้อม Map Picker ผ่าน Mapbox</li>
+          <li>กำหนดข้อมูลพื้นฐาน: ชื่อ, แบรนด์, จังหวัด, เขต, ที่อยู่, ช่วงเวลาเปิด-ปิด</li>
+          <li>เปิด/ปิดสถานะปั๊ม (is_active) และบริหาร Station profile</li>
+          <li>กำหนดรายการน้ำมันที่ให้บริการ (Fuel Types: 91, 95, E20, Diesel ฯลฯ)</li>
+        </ul>
+        <div class="feature-api">
+          <div class="feature-api-label">API Endpoints ที่ใช้</div>
+          <code>
+            <span>GET</span>  /api/fuel/stations — ดึงรายการปั๊มทั้งหมดของ Tenant<br>
+            <span>POST/PUT</span> /api/fuel/stations — สร้าง/แก้ไขข้อมูลปั๊ม<br>
+            <span>GET</span>  /api/fuel/types — ดึงประเภทน้ำมันทั้งหมด
+          </code>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-block">
+      <div class="feature-header">
+        <div class="feature-dot dot-orange"></div>
+        <span class="feature-title">Fuel Status Management — อัปเดตสถานะน้ำมัน</span>
+        <span class="feature-tag tag-admin">Admin</span>
+        <span class="feature-tag tag-realtime" style="margin-left:4px;">Realtime</span>
+      </div>
+      <div class="feature-body">
+        <ul class="feature-list">
+          <li>อัปเดตสถานะแต่ละประเภทน้ำมัน: มี / หมด / ราคา (PATCH per fuel type)</li>
+          <li>Dashboard แสดง Last Updated timestamp ของแต่ละ fuel type</li>
+          <li>Quick Toggle UI — อัปเดตได้เร็วด้วย toggle + price input per row</li>
+          <li>ประวัติการอัปเดตสถานะย้อนหลัง (timestamp log)</li>
+        </ul>
+        <div class="feature-api">
+          <div class="feature-api-label">API Endpoints ที่ใช้</div>
+          <code>
+            <span>PATCH</span> /api/fuel/stations/:id/status — อัปเดต isAvailable + price<br>
+            <span>GET</span>   /api/fuel/stations/:id — ดึงสถานะปัจจุบัน
+          </code>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-block">
+      <div class="feature-header">
+        <div class="feature-dot dot-orange"></div>
+        <span class="feature-title">Traffic & Queue Management — จำนวนผู้ใช้บริการ</span>
+        <span class="feature-tag tag-admin">Admin</span>
+      </div>
+      <div class="feature-body">
+        <ul class="feature-list">
+          <li>อัปเดตระดับความหนาแน่น: ว่าง / ปานกลาง / แน่น (low / medium / high)</li>
+          <li>แสดงสถิติ Traffic รายชั่วโมงจาก traffic_reports</li>
+          <li>ดูรายงานจากประชาชน (user_reports) ที่ส่งเข้ามาเกี่ยวกับปั๊มนั้น</li>
+        </ul>
+        <div class="feature-api">
+          <div class="feature-api-label">API Endpoints ที่ใช้</div>
+          <code>
+            <span>GET</span> /api/fuel/stations/:id/traffic — ข้อมูลจราจรรอบปั๊ม<br>
+            <span>GET</span> user_reports (Supabase Realtime subscribe)
+          </code>
+        </div>
+      </div>
+    </div>
+
+    <!-- Public Side -->
+    <h3 style="margin-top:48px;">Track B — Public Interface (Citizen App)</h3>
+    <p style="margin-bottom:20px;">
+      หน้าสำหรับประชาชนทั่วไปไม่ต้อง Login สามารถเปิดดูข้อมูลในพื้นที่ที่ตนอยู่ได้ทันที
+    </p>
+
+    <div class="feature-block">
+      <div class="feature-header">
+        <div class="feature-dot dot-teal"></div>
+        <span class="feature-title">Interactive Map — แผนที่ปั๊มน้ำมัน (Mapbox)</span>
+        <span class="feature-tag tag-public">Public</span>
+        <span class="feature-tag tag-realtime" style="margin-left:4px;">Realtime</span>
+      </div>
+      <div class="feature-body">
+        <ul class="feature-list">
+          <li>แผนที่ Mapbox แสดง Marker ของปั๊มน้ำมันรอบตำแหน่งที่ผู้ใช้อยู่</li>
+          <li>Marker สี: เขียว = มีน้ำมัน, แดง = หมด, เทา = ไม่ทราบสถานะ</li>
+          <li>Cluster marker เมื่อ zoom ออก — แสดงจำนวนปั๊มในพื้นที่</li>
+          <li>คลิก Marker เปิด Popup แสดงสถานะน้ำมันแต่ละประเภท + ราคา</li>
+          <li>Filter: แบรนด์ / ประเภทน้ำมัน / "มีน้ำมัน" เท่านั้น</li>
+          <li>Real-time update เมื่อสถานะน้ำมันเปลี่ยน (Supabase Realtime)</li>
+        </ul>
+        <div class="feature-api">
+          <div class="feature-api-label">API Endpoints ที่ใช้</div>
+          <code>
+            <span>GET</span> /api/fuel/stations?province=X&available=true — ดึงปั๊มในพื้นที่<br>
+            <span>GET</span> /api/fuel/types — ประเภทน้ำมัน<br>
+            <span>SUB</span> Realtime: table=station_fuel_status (INSERT/UPDATE)
+          </code>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-block">
+      <div class="feature-header">
+        <div class="feature-dot dot-teal"></div>
+        <span class="feature-title">Situation Cards — การ์ดสถานการณ์</span>
+        <span class="feature-tag tag-public">Public</span>
+        <span class="feature-tag tag-realtime" style="margin-left:4px;">Realtime</span>
+      </div>
+      <div class="feature-body">
+        <ul class="feature-list">
+          <li>แสดง Event Cards แนวนอน (Horizontal Scroll) ด้านล่างแผนที่</li>
+          <li>ประเภทการ์ด MVP: ⛽ น้ำมันในพื้นที่ | 🌊 น้ำท่วม | ⚠️ ภัยพิบัติ | 🚧 ถนนปิด</li>
+          <li>สรุปสถิติ: ปั๊มในรัศมี 5km / กี่แห่งมีน้ำมัน / ปั๊มไหนใกล้ที่สุด</li>
+          <li>การ์ดคลิกได้ — เปิด Detail sheet หรือ Focus บนแผนที่</li>
+          <li>ข้อมูลสถานการณ์จาก user_reports และ station_fuel_status แบบ Real-time</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature-block">
+      <div class="feature-header">
+        <div class="feature-dot dot-blue"></div>
+        <span class="feature-title">Citizen Reporting — รายงานจากประชาชน</span>
+        <span class="feature-tag tag-public">Public</span>
+      </div>
+      <div class="feature-body">
+        <ul class="feature-list">
+          <li>ไม่ต้อง Login — รายงานสถานะน้ำมันได้ทันทีจาก Popup ปั๊ม</li>
+          <li>รายงาน: น้ำมันหมด / มีน้ำมัน / คิวยาว พร้อมโน้ตเพิ่มเติม</li>
+          <li>Crowdsource ช่วยเติมเต็มข้อมูลในช่วงที่ Staff ยังไม่ได้อัปเดต</li>
+        </ul>
+        <div class="feature-api">
+          <div class="feature-api-label">API Endpoints ที่ใช้</div>
+          <code>
+            <span>POST</span> /api/fuel/reports — ส่งรายงาน (Public, ไม่ต้อง Auth)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ stationId, fuelTypeId, reportType, note }<br>
+            <span>reportType:</span> "out_of_stock" | "available" | "long_queue"
+          </code>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 03 Architecture -->
+  <div class="section">
+    <div class="section-label">03 — Architecture</div>
+    <h2>สถาปัตยกรรมระบบ</h2>
+    <p>CityZen ประกอบด้วย 3 Entry Points: Web App, Line OA (Rich Menu + LIFF), และ Webhook Server
+    ทั้งหมดรันบน Next.js โปรเจกต์เดียว ต่อตรงกับ Thunder Core API และ Supabase Realtime</p>
+
+    <div class="arch-wrap">
+      <div class="arch-title">System Architecture — CityZen MVP</div>
+
+      <!-- Clients -->
+      <div class="arch-row">
+        <div class="arch-box ab-orange">
+          <div class="arch-box-head">Client A</div>
+          <div class="arch-box-title">Admin Dashboard<br><span style="font-size:11px; color:rgba(250,249,246,0.4);">Staff จัดการปั๊ม + สถานะน้ำมัน</span></div>
+        </div>
+        <div class="arch-connector"><span>·</span></div>
+        <div class="arch-box ab-teal">
+          <div class="arch-box-head">Client B</div>
+          <div class="arch-box-title">Public Map (LIFF)<br><span style="font-size:11px; color:rgba(250,249,246,0.4);">ประชาชน ดูแผนที่ + รายงาน</span></div>
+        </div>
+        <div class="arch-connector"><span>·</span></div>
+        <div class="arch-box" style="background:rgba(6,199,85,0.1); border-color:rgba(6,199,85,0.3);">
+          <div class="arch-box-head" style="color:#06c755;">Client C</div>
+          <div class="arch-box-title">Line OA — Rich Menu<br><span style="font-size:11px; color:rgba(250,249,246,0.4);">กด menu → Postback → Flex Message</span></div>
+        </div>
+      </div>
+
+      <div class="arch-divider">
+        <div class="arch-divider-line"></div>
+        <div class="arch-divider-label">Auth: Supabase JWT · Public: Anon Key · Line: POST /api/line/webhook</div>
+        <div class="arch-divider-line"></div>
+      </div>
+
+      <!-- API Layer -->
+      <div class="arch-row">
+        <div class="arch-box ab-blue" style="flex:2;">
+          <div class="arch-box-head">Thunder Core API</div>
+          <div class="arch-box-title">thundercore.vercel.app<br>
+            <span style="font-size:11px; color:rgba(250,249,246,0.4);">
+              /api/fuel/stations · /api/fuel/types<br>
+              /api/fuel/stations/:id/status · /api/fuel/reports
+            </span>
+          </div>
+        </div>
+        <div class="arch-connector"><span>+</span></div>
+        <div class="arch-box ab-blue" style="flex:1;">
+          <div class="arch-box-head">Mapbox GL JS</div>
+          <div class="arch-box-title">Interactive Map<br>
+            <span style="font-size:11px; color:rgba(250,249,246,0.4);">Markers · Clusters · Popup</span>
+          </div>
+        </div>
+        <div class="arch-connector"><span>+</span></div>
+        <div class="arch-box" style="flex:1; background:rgba(6,199,85,0.1); border-color:rgba(6,199,85,0.3);">
+          <div class="arch-box-head" style="color:#06c755;">Line Webhook</div>
+          <div class="arch-box-title">POST /api/line/webhook<br>
+            <span style="font-size:11px; color:rgba(250,249,246,0.4);">Verify sig → Route → Reply Flex</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-divider">
+        <div class="arch-divider-line"></div>
+        <div class="arch-divider-label">Supabase Realtime — postgres_changes subscription</div>
+        <div class="arch-divider-line"></div>
+      </div>
+
+      <!-- DB Layer -->
+      <div class="arch-row">
+        <div class="arch-box ab-gray">
+          <div class="arch-box-head">Table</div>
+          <div class="arch-box-title" style="font-size:12px;">stations<br><span style="font-size:10px;opacity:0.4;">ข้อมูลปั๊ม</span></div>
+        </div>
+        <div class="arch-connector"><span>·</span></div>
+        <div class="arch-box ab-gray">
+          <div class="arch-box-head">Table</div>
+          <div class="arch-box-title" style="font-size:12px;">station_fuel_status<br><span style="font-size:10px;opacity:0.4;">สถานะน้ำมัน</span></div>
+        </div>
+        <div class="arch-connector"><span>·</span></div>
+        <div class="arch-box ab-gray">
+          <div class="arch-box-head">Table</div>
+          <div class="arch-box-title" style="font-size:12px;">user_reports<br><span style="font-size:10px;opacity:0.4;">รายงานประชาชน</span></div>
+        </div>
+        <div class="arch-connector"><span>·</span></div>
+        <div class="arch-box ab-gray">
+          <div class="arch-box-head">Table</div>
+          <div class="arch-box-title" style="font-size:12px;">fuel_types<br><span style="font-size:10px;opacity:0.4;">ประเภทน้ำมัน</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p>
+        <strong>RLS (Row Level Security) ทำงานอัตโนมัติ:</strong> Public users อ่านได้ทุก stations
+        แต่เฉพาะ Tenant Admin เท่านั้นที่ PATCH /status ได้ — ไม่ต้องเขียน Guard Logic เพิ่มเติมใน Frontend
+      </p>
+    </div>
+  </div>
+
+  <!-- 04 DB Schema -->
+  <div class="section">
+    <div class="section-label">04 — Data Model</div>
+    <h2>โครงสร้างฐานข้อมูล</h2>
+    <p>ตารางหลักที่ CityZen MVP จะใช้งาน (ทั้งหมดอยู่ใน Thunder Core Database แล้ว)</p>
+
+    <div class="schema-grid">
+      <div class="schema-table">
+        <div class="schema-table-head">stations <span>ข้อมูลปั๊มน้ำมัน</span></div>
+        <div class="schema-row"><span class="schema-field">id</span><span class="schema-type">uuid <span class="schema-badge sb-pk">PK</span></span></div>
+        <div class="schema-row"><span class="schema-field">name</span><span class="schema-type">text</span></div>
+        <div class="schema-row"><span class="schema-field">brand</span><span class="schema-type">text</span></div>
+        <div class="schema-row"><span class="schema-field">latitude</span><span class="schema-type">float8</span></div>
+        <div class="schema-row"><span class="schema-field">longitude</span><span class="schema-type">float8</span></div>
+        <div class="schema-row"><span class="schema-field">province</span><span class="schema-type">text</span></div>
+        <div class="schema-row"><span class="schema-field">address</span><span class="schema-type">text</span></div>
+        <div class="schema-row"><span class="schema-field">is_active</span><span class="schema-type">boolean</span></div>
+      </div>
+
+      <div class="schema-table">
+        <div class="schema-table-head">station_fuel_status <span>สถานะน้ำมัน</span></div>
+        <div class="schema-row"><span class="schema-field">id</span><span class="schema-type">uuid <span class="schema-badge sb-pk">PK</span></span></div>
+        <div class="schema-row"><span class="schema-field">station_id</span><span class="schema-type">uuid <span class="schema-badge sb-fk">FK</span></span></div>
+        <div class="schema-row"><span class="schema-field">fuel_type_id</span><span class="schema-type">uuid <span class="schema-badge sb-fk">FK</span></span></div>
+        <div class="schema-row"><span class="schema-field">is_available</span><span class="schema-type">boolean</span></div>
+        <div class="schema-row"><span class="schema-field">price</span><span class="schema-type">decimal</span></div>
+        <div class="schema-row"><span class="schema-field">updated_at</span><span class="schema-type">timestamptz</span></div>
+      </div>
+
+      <div class="schema-table">
+        <div class="schema-table-head">fuel_types <span>ประเภทน้ำมัน</span></div>
+        <div class="schema-row"><span class="schema-field">id</span><span class="schema-type">uuid <span class="schema-badge sb-pk">PK</span></span></div>
+        <div class="schema-row"><span class="schema-field">code</span><span class="schema-type">text (91, E20…)</span></div>
+        <div class="schema-row"><span class="schema-field">name</span><span class="schema-type">text</span></div>
+        <div class="schema-row"><span class="schema-field">color_code</span><span class="schema-type">text (hex)</span></div>
+        <div class="schema-row"><span class="schema-field">sort_order</span><span class="schema-type">int</span></div>
+      </div>
+
+      <div class="schema-table">
+        <div class="schema-table-head">user_reports <span>รายงานประชาชน</span></div>
+        <div class="schema-row"><span class="schema-field">id</span><span class="schema-type">uuid <span class="schema-badge sb-pk">PK</span></span></div>
+        <div class="schema-row"><span class="schema-field">station_id</span><span class="schema-type">uuid <span class="schema-badge sb-fk">FK</span></span></div>
+        <div class="schema-row"><span class="schema-field">fuel_type_id</span><span class="schema-type">uuid <span class="schema-badge sb-fk">FK</span></span></div>
+        <div class="schema-row"><span class="schema-field">report_type</span><span class="schema-type">out_of_stock…</span></div>
+        <div class="schema-row"><span class="schema-field">note</span><span class="schema-type">text</span></div>
+        <div class="schema-row"><span class="schema-field">created_at</span><span class="schema-type">timestamptz</span></div>
+      </div>
+    </div>
+
+    <h3>RLS — Permission Matrix</h3>
+    <table class="rls-table">
+      <thead>
+        <tr>
+          <th>Action</th>
+          <th>Table</th>
+          <th>Public (Anon)</th>
+          <th>Tenant Admin</th>
+          <th>Super Admin</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>READ stations</td>
+          <td><code>stations</code></td>
+          <td class="perm-yes">✓ ทุก row</td>
+          <td class="perm-yes">✓ ทุก row</td>
+          <td class="perm-yes">✓ ทุก row</td>
+        </tr>
+        <tr>
+          <td>READ fuel status</td>
+          <td><code>station_fuel_status</code></td>
+          <td class="perm-yes">✓ ทุก row</td>
+          <td class="perm-yes">✓ ทุก row</td>
+          <td class="perm-yes">✓ ทุก row</td>
+        </tr>
+        <tr>
+          <td>UPDATE fuel status</td>
+          <td><code>station_fuel_status</code></td>
+          <td class="perm-no">✗</td>
+          <td class="perm-limit">✓ เฉพาะ Tenant ตัวเอง</td>
+          <td class="perm-yes">✓ ทุก Tenant</td>
+        </tr>
+        <tr>
+          <td>CREATE report</td>
+          <td><code>user_reports</code></td>
+          <td class="perm-yes">✓ (Public)</td>
+          <td class="perm-yes">✓</td>
+          <td class="perm-yes">✓</td>
+        </tr>
+        <tr>
+          <td>Realtime subscribe</td>
+          <td><code>station_fuel_status</code></td>
+          <td class="perm-yes">✓ (Anon Key)</td>
+          <td class="perm-yes">✓ (JWT)</td>
+          <td class="perm-yes">✓</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 05 Tech Stack -->
+  <div class="section">
+    <div class="section-label">05 — Tech Stack</div>
+    <h2>เทคโนโลยีที่ใช้</h2>
+    <p>เลือก Stack ที่ต่อกับ Thunder Core ได้ตรงที่สุด ลด Overhead และเร็วที่สุดสำหรับ MVP</p>
+    <div class="tech-grid">
+      <div class="tech-card">
+        <div class="tech-cat">Framework</div>
+        <div class="tech-name">Next.js 15</div>
+        <div class="tech-note">App Router, Server Components สำหรับ SEO</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-cat">Language</div>
+        <div class="tech-name">TypeScript</div>
+        <div class="tech-note">Type-safe กับ API Response structures</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-cat">Backend / DB</div>
+        <div class="tech-name">Thunder Core API</div>
+        <div class="tech-note">thundercore.vercel.app ไม่ต้องมี Backend แยก</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-cat">Auth</div>
+        <div class="tech-name">Supabase Auth</div>
+        <div class="tech-note">Shared auth กับ Thunder Core ไม่ต้อง setup ใหม่</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-cat">Realtime</div>
+        <div class="tech-name">Supabase Realtime</div>
+        <div class="tech-note">postgres_changes subscribe station_fuel_status</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-cat">Map</div>
+        <div class="tech-name">Mapbox GL JS</div>
+        <div class="tech-note">Markers, Clusters, Popup, Geolocation</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-cat">UI</div>
+        <div class="tech-name">Tailwind CSS v4</div>
+        <div class="tech-note">+ Shadcn/ui components สำหรับ Admin</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-cat">State</div>
+        <div class="tech-name">Zustand</div>
+        <div class="tech-note">Map state, Filter, Realtime data sync</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 06 Timeline -->
+  <div class="section">
+    <div class="section-label">06 — Delivery Plan</div>
+    <h2>แผนการพัฒนา</h2>
+    <p>แบ่งออกเป็น 4 Sprint ประมาณ 6 สัปดาห์สำหรับ MVP ที่ใช้งานได้จริง</p>
+    <div class="timeline" style="margin-top:36px;">
+
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="timeline-phase">Sprint 1</div>
+          <div class="timeline-dur">สัปดาห์ 1–2</div>
+        </div>
+        <div class="timeline-right">
+          <div class="timeline-dot td-1"></div>
+          <div class="timeline-title">Foundation & Auth</div>
+          <ul class="timeline-items-list">
+            <li>Setup Next.js project + Supabase client (shared auth กับ Thunder Core)</li>
+            <li>Admin Login flow ด้วย Supabase JWT</li>
+            <li>Tenant context — ดึง default_tenant_id จาก /api/dashboard/tenant</li>
+            <li>Layout + Navigation สำหรับ Admin Dashboard</li>
+            <li>Mapbox GL JS setup พร้อม Geolocation</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="timeline-phase">Sprint 2</div>
+          <div class="timeline-dur">สัปดาห์ 2–3</div>
+        </div>
+        <div class="timeline-right">
+          <div class="timeline-dot td-2"></div>
+          <div class="timeline-title">Admin — Station & Fuel Management</div>
+          <ul class="timeline-items-list">
+            <li>หน้า Station List + Station Detail</li>
+            <li>Station Form: ตั้งค่า Location (Map Picker), แบรนด์, เวลาเปิด-ปิด</li>
+            <li>Fuel Status Panel: Quick Toggle + Price input per fuel type</li>
+            <li>Traffic Level selector: ว่าง / ปานกลาง / แน่น</li>
+            <li>User Reports viewer — รายงานจากประชาชนที่เข้ามา</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="timeline-phase">Sprint 3</div>
+          <div class="timeline-dur">สัปดาห์ 4–5</div>
+        </div>
+        <div class="timeline-right">
+          <div class="timeline-dot td-3"></div>
+          <div class="timeline-title">Public Map Interface</div>
+          <ul class="timeline-items-list">
+            <li>Mapbox Map พร้อม Station Markers (color-coded ตามสถานะ)</li>
+            <li>Cluster markers + Popup แสดง Fuel Status detail</li>
+            <li>Filter Bar: แบรนด์ / ประเภทน้ำมัน / มีน้ำมันเท่านั้น</li>
+            <li>Situation Cards (horizontal scroll) — สรุปน้ำมันในรัศมี</li>
+            <li>Citizen Report Form ใน Station Popup (ไม่ต้อง Login)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="timeline-phase">Sprint 4</div>
+          <div class="timeline-dur">สัปดาห์ 6–7</div>
+        </div>
+        <div class="timeline-right">
+          <div class="timeline-dot td-4"></div>
+          <div class="timeline-title">Line OA — Webhook + LIFF</div>
+          <ul class="timeline-items-list">
+            <li>Setup Line OA + Rich Menu (6 ช่อง) บน Line Developers Console</li>
+            <li>Webhook handler: POST /api/line/webhook + signature verification</li>
+            <li>Implement FUEL_NEARBY, FUEL_BY_PROVINCE, FUEL_BY_TYPE actions</li>
+            <li>Flex Message templates: Station Bubble Carousel + Province Summary</li>
+            <li>LIFF App สำหรับ Public Map + Citizen Report Form</li>
+            <li>SITUATION_ALERT + CITIZEN_REPORT flow</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="timeline-phase">Sprint 5</div>
+          <div class="timeline-dur">สัปดาห์ 8</div>
+        </div>
+        <div class="timeline-right">
+          <div class="timeline-dot" style="background: var(--accent-2);"></div>
+          <div class="timeline-title">Realtime, Polish & Deploy</div>
+          <ul class="timeline-items-list">
+            <li>Supabase Realtime subscribe — อัปเดต Marker อัตโนมัติเมื่อสถานะเปลี่ยน</li>
+            <li>Subscribe user_reports — แสดง Notification เมื่อมีรายงานใหม่ใน Admin</li>
+            <li>Responsive design (Mobile-first สำหรับ Public map)</li>
+            <li>Performance: Lazy load Mapbox, SWR cache API calls</li>
+            <li>Deploy บน Vercel + Environment variables ครบ</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 07 Line OA -->
+  <div class="section">
+    <div class="section-label">07 — Line OA Integration</div>
+    <h2>Line Official Account<br><span style="font-style:italic; color:var(--ink-3); font-family:var(--serif); font-size:28px;">Rich Menu + Webhook</span></h2>
+    <p>
+      เนื่องจากกลุ่มผู้ใช้หลักของ CityZen ใช้งานผ่าน <strong>Line</strong> เป็นหลัก
+      CityZen จึงต้องมี Line OA ที่เชื่อมต่อกับ Thunder Core API โดยตรง
+      ผู้ใช้กด Rich Menu → Line ส่ง Postback → Webhook Server เรียก API → ตอบกลับเป็น Flex Message
+    </p>
+    <p>
+      สำหรับ MVP นี้ Webhook Server จะถูก implement เป็น <strong>Next.js API Route</strong>
+      ซึ่งอยู่ในโปรเจกต์เดียวกัน — ไม่ต้องมี Backend แยกเพิ่มเติม
+    </p>
+
+    <!-- Flow diagram -->
+    <div class="arch-wrap" style="margin: 32px 0;">
+      <div class="arch-title">Line OA — Request Flow</div>
+
+      <div class="arch-row">
+        <div class="arch-box ab-teal">
+          <div class="arch-box-head">1. User</div>
+          <div class="arch-box-title">กด Rich Menu ใน Line OA<br><span style="font-size:11px;color:rgba(250,249,246,0.4);">เช่น "เช็คน้ำมัน" / "ปั๊มใกล้ฉัน"</span></div>
+        </div>
+        <div class="arch-connector"><span>→</span></div>
+        <div class="arch-box ab-teal">
+          <div class="arch-box-head">2. Line Platform</div>
+          <div class="arch-box-title">ส่ง Postback / Message Event<br><span style="font-size:11px;color:rgba(250,249,246,0.4);">พร้อม action data + replyToken</span></div>
+        </div>
+        <div class="arch-connector"><span>→</span></div>
+        <div class="arch-box ab-orange">
+          <div class="arch-box-head">3. Webhook Server</div>
+          <div class="arch-box-title">POST /api/line/webhook<br><span style="font-size:11px;color:rgba(250,249,246,0.4);">Next.js API Route รับ event</span></div>
+        </div>
+      </div>
+
+      <div class="arch-divider">
+        <div class="arch-divider-line"></div>
+        <div class="arch-divider-label">parse action → route → fetch data</div>
+        <div class="arch-divider-line"></div>
+      </div>
+
+      <div class="arch-row">
+        <div class="arch-box ab-blue">
+          <div class="arch-box-head">4. Thunder Core API</div>
+          <div class="arch-box-title">Query ข้อมูลตาม action<br><span style="font-size:11px;color:rgba(250,249,246,0.4);">/api/fuel/stations · /api/fuel/types</span></div>
+        </div>
+        <div class="arch-connector"><span>→</span></div>
+        <div class="arch-box ab-orange">
+          <div class="arch-box-head">5. Webhook Server</div>
+          <div class="arch-box-title">Build Flex Message<br><span style="font-size:11px;color:rgba(250,249,246,0.4);">format response เป็น Line Flex</span></div>
+        </div>
+        <div class="arch-connector"><span>→</span></div>
+        <div class="arch-box ab-teal">
+          <div class="arch-box-head">6. User ได้รับ</div>
+          <div class="arch-box-title">Flex Message + Quick Reply<br><span style="font-size:11px;color:rgba(250,249,246,0.4);">แสดงข้อมูลปั๊ม + สถานะน้ำมัน</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rich Menu Actions -->
+    <h3>Rich Menu — Actions ที่ต้องรองรับ (MVP)</h3>
+    <p style="margin-bottom:20px;">Rich Menu จะมี 6 ช่อง แต่ละช่องส่ง Postback action data ที่ต่างกัน</p>
+
+    <div style="display:grid; grid-template-columns: repeat(3,1fr); gap:1px; background:var(--rule); border:0.5px solid var(--rule); border-radius:12px; overflow:hidden; margin-bottom:28px;">
+      <div style="background:var(--paper); padding:20px 18px;">
+        <div style="font-family:var(--mono); font-size:9px; color:var(--accent); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px;">Menu 1</div>
+        <div style="font-size:20px; margin-bottom:6px;">⛽</div>
+        <div style="font-size:14px; font-weight:600; color:var(--ink); margin-bottom:4px;">ปั๊มใกล้ฉัน</div>
+        <div style="font-size:11px; color:var(--ink-3); line-height:1.5;">ขอ location แล้วหาปั๊มในรัศมี 5km ที่มีน้ำมัน</div>
+        <div style="margin-top:10px; padding:8px 10px; background:var(--paper-2); border-radius:4px; font-family:var(--mono); font-size:9px; color:var(--ink-3);">action: FUEL_NEARBY<br>→ ขอ Location Permission</div>
+      </div>
+      <div style="background:var(--paper); padding:20px 18px;">
+        <div style="font-family:var(--mono); font-size:9px; color:var(--accent); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px;">Menu 2</div>
+        <div style="font-size:20px; margin-bottom:6px;">🔍</div>
+        <div style="font-size:14px; font-weight:600; color:var(--ink); margin-bottom:4px;">เช็คน้ำมันตามจังหวัด</div>
+        <div style="font-size:11px; color:var(--ink-3); line-height:1.5;">เลือกจังหวัด แล้วดูสรุปสถานะน้ำมันทั้งหมด</div>
+        <div style="margin-top:10px; padding:8px 10px; background:var(--paper-2); border-radius:4px; font-family:var(--mono); font-size:9px; color:var(--ink-3);">action: FUEL_BY_PROVINCE<br>→ Quick Reply รายจังหวัด</div>
+      </div>
+      <div style="background:var(--paper); padding:20px 18px;">
+        <div style="font-family:var(--mono); font-size:9px; color:var(--accent); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px;">Menu 3</div>
+        <div style="font-size:20px; margin-bottom:6px;">📋</div>
+        <div style="font-size:14px; font-weight:600; color:var(--ink); margin-bottom:4px;">สถานะน้ำมันรายประเภท</div>
+        <div style="font-size:11px; color:var(--ink-3); line-height:1.5;">ดูว่าน้ำมันประเภทไหนหมดบ้าง ในพื้นที่ที่เลือก</div>
+        <div style="margin-top:10px; padding:8px 10px; background:var(--paper-2); border-radius:4px; font-family:var(--mono); font-size:9px; color:var(--ink-3);">action: FUEL_BY_TYPE<br>→ เลือก 91 / 95 / E20 / Diesel</div>
+      </div>
+      <div style="background:var(--paper); padding:20px 18px;">
+        <div style="font-family:var(--mono); font-size:9px; color:var(--blue); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px;">Menu 4</div>
+        <div style="font-size:20px; margin-bottom:6px;">🌊</div>
+        <div style="font-size:14px; font-weight:600; color:var(--ink); margin-bottom:4px;">สถานการณ์ฉุกเฉิน</div>
+        <div style="font-size:11px; color:var(--ink-3); line-height:1.5;">ดูการ์ดแจ้งเตือนภัยพิบัติ/น้ำท่วมในพื้นที่</div>
+        <div style="margin-top:10px; padding:8px 10px; background:var(--paper-2); border-radius:4px; font-family:var(--mono); font-size:9px; color:var(--ink-3);">action: SITUATION_ALERT<br>→ Carousel ล่าสุด</div>
+      </div>
+      <div style="background:var(--paper); padding:20px 18px;">
+        <div style="font-family:var(--mono); font-size:9px; color:var(--blue); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px;">Menu 5</div>
+        <div style="font-size:20px; margin-bottom:6px;">📣</div>
+        <div style="font-size:14px; font-weight:600; color:var(--ink); margin-bottom:4px;">รายงานน้ำมัน</div>
+        <div style="font-size:11px; color:var(--ink-3); line-height:1.5;">รายงานว่าน้ำมันหมด/มี/คิวยาว (ไม่ต้อง Login)</div>
+        <div style="margin-top:10px; padding:8px 10px; background:var(--paper-2); border-radius:4px; font-family:var(--mono); font-size:9px; color:var(--ink-3);">action: CITIZEN_REPORT<br>→ Open LIFF Form</div>
+      </div>
+      <div style="background:var(--paper); padding:20px 18px;">
+        <div style="font-family:var(--mono); font-size:9px; color:var(--teal); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px;">Menu 6</div>
+        <div style="font-size:20px; margin-bottom:6px;">🗺️</div>
+        <div style="font-size:14px; font-weight:600; color:var(--ink); margin-bottom:4px;">เปิดแผนที่</div>
+        <div style="font-size:11px; color:var(--ink-3); line-height:1.5;">เปิด LIFF หน้าแผนที่ Mapbox แบบ Full-screen</div>
+        <div style="margin-top:10px; padding:8px 10px; background:var(--paper-2); border-radius:4px; font-family:var(--mono); font-size:9px; color:var(--ink-3);">action: OPEN_MAP<br>→ LIFF URL (Public Map)</div>
+      </div>
+    </div>
+
+    <!-- Webhook Implementation -->
+    <h3>Webhook Server — Implementation</h3>
+    <p style="margin-bottom:20px;">Webhook ถูก implement เป็น Next.js API Route ที่ <code style="font-family:monospace; font-size:12px; background:var(--paper-2); padding:1px 8px; border-radius:4px;">/api/line/webhook</code> รับ POST จาก Line Platform</p>
+
+    <div class="feature-block">
+      <div class="feature-header">
+        <div class="feature-dot dot-orange"></div>
+        <span class="feature-title">Webhook Handler Logic</span>
+        <span class="feature-tag tag-admin">Server-side</span>
+      </div>
+      <div class="feature-body">
+        <ul class="feature-list">
+          <li>Verify signature ด้วย <code style="font-family:monospace; font-size:11px;">LINE_CHANNEL_SECRET</code> ทุก request (HMAC-SHA256)</li>
+          <li>Parse event type: <code style="font-family:monospace; font-size:11px;">postback</code> (จาก Rich Menu) | <code style="font-family:monospace; font-size:11px;">message</code> | <code style="font-family:monospace; font-size:11px;">location</code></li>
+          <li>Route ตาม <code style="font-family:monospace; font-size:11px;">event.postback.data</code> หรือ text keyword</li>
+          <li>เรียก Thunder Core API ด้วย Service Token (ไม่ใช่ User JWT)</li>
+          <li>Build Flex Message / Carousel / Quick Reply แล้ว reply ด้วย replyToken</li>
+          <li>Respond <code style="font-family:monospace; font-size:11px;">200 OK</code> ทันที (Line timeout = 30s) ถ้า slow query ใช้ async + push message แทน</li>
+        </ul>
+        <div class="feature-api">
+          <div class="feature-api-label">Environment Variables เพิ่มเติม</div>
+          <code>
+            <span>LINE_CHANNEL_ACCESS_TOKEN</span>=xxxx  # สำหรับ reply/push message<br>
+            <span>LINE_CHANNEL_SECRET</span>=xxxx         # สำหรับ verify webhook signature<br>
+            <span>LINE_LIFF_ID</span>=xxxx                # LIFF App ID สำหรับหน้า Map + Report Form<br>
+            <span>SUPABASE_SERVICE_ROLE_KEY</span>=xxxx   # Server-side API calls (ไม่ expose)
+          </code>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-block">
+      <div class="feature-header">
+        <div class="feature-dot dot-teal"></div>
+        <span class="feature-title">LIFF (Line Front-end Framework) Integration</span>
+        <span class="feature-tag tag-public">Public</span>
+      </div>
+      <div class="feature-body">
+        <ul class="feature-list">
+          <li>Public Map Interface จะ register เป็น <strong>LIFF App</strong> — เปิดใน Line ได้เลยแบบ in-app browser</li>
+          <li><code style="font-family:monospace; font-size:11px;">liff.init()</code> ดึง Line User Profile (userId, displayName) โดยไม่ต้อง Login แยก</li>
+          <li>Citizen Report Form ใช้ LIFF เพื่อผูก userId กับ report (ป้องกัน spam)</li>
+          <li>หน้าแผนที่ LIFF ส่ง location กลับผ่าน <code style="font-family:monospace; font-size:11px;">liff.sendMessages()</code> ได้</li>
+          <li>LIFF URL format: <code style="font-family:monospace; font-size:11px;">https://liff.line.me/{liffId}</code> ใส่ใน Rich Menu action ได้ทันที</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Message Templates -->
+    <h3>Flex Message Templates</h3>
+    <p style="margin-bottom:20px;">ตัวอย่าง response ที่ Webhook จะส่งกลับสำหรับแต่ละ action</p>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;">
+      <div class="schema-table">
+        <div class="schema-table-head">FUEL_NEARBY <span>Bubble Carousel</span></div>
+        <div class="schema-row" style="flex-direction:column; align-items:flex-start; gap:4px;">
+          <span class="schema-field" style="color:var(--accent);">Hero image</span>
+          <span class="schema-type">แผนที่ Static ของพื้นที่ (Mapbox Static API)</span>
+        </div>
+        <div class="schema-row" style="flex-direction:column; align-items:flex-start; gap:4px;">
+          <span class="schema-field">Body</span>
+          <span class="schema-type">ชื่อปั๊ม + แบรนด์ + ระยะทาง + สถานะน้ำมันแต่ละประเภท</span>
+        </div>
+        <div class="schema-row" style="flex-direction:column; align-items:flex-start; gap:4px;">
+          <span class="schema-field">Footer</span>
+          <span class="schema-type">ปุ่ม "นำทาง" (geo: URI) + "ดูทั้งหมด" (LIFF Map)</span>
+        </div>
+      </div>
+      <div class="schema-table">
+        <div class="schema-table-head">FUEL_BY_PROVINCE <span>Quick Reply + Summary</span></div>
+        <div class="schema-row" style="flex-direction:column; align-items:flex-start; gap:4px;">
+          <span class="schema-field" style="color:var(--accent);">Step 1</span>
+          <span class="schema-type">Quick Reply buttons: รายชื่อจังหวัด (10 จังหวัดยอดนิยม)</span>
+        </div>
+        <div class="schema-row" style="flex-direction:column; align-items:flex-start; gap:4px;">
+          <span class="schema-field">Step 2</span>
+          <span class="schema-type">Flex Message สรุป: มีน้ำมัน N/M ปั๊ม แยกตาม fuel type</span>
+        </div>
+        <div class="schema-row" style="flex-direction:column; align-items:flex-start; gap:4px;">
+          <span class="schema-field">API Call</span>
+          <span class="schema-type">GET /api/fuel/stations?province=X</span>
+        </div>
+      </div>
+      <div class="schema-table">
+        <div class="schema-table-head">SITUATION_ALERT <span>Alert Carousel</span></div>
+        <div class="schema-row" style="flex-direction:column; align-items:flex-start; gap:4px;">
+          <span class="schema-field" style="color:var(--blue);">Format</span>
+          <span class="schema-type">Flex Carousel แต่ละ Bubble = 1 สถานการณ์</span>
+        </div>
+        <div class="schema-row" style="flex-direction:column; align-items:flex-start; gap:4px;">
+          <span class="schema-field">Fields</span>
+          <span class="schema-type">ประเภท + ระดับความรุนแรง + พื้นที่ + เวลาอัปเดต</span>
+        </div>
+        <div class="schema-row" style="flex-direction:column; align-items:flex-start; gap:4px;">
+          <span class="schema-field">Color</span>
+          <span class="schema-type">Header สีตามระดับ: แดง=วิกฤต / เหลือง=เฝ้าระวัง</span>
+        </div>
+      </div>
+      <div class="schema-table">
+        <div class="schema-table-head">CITIZEN_REPORT <span>LIFF Form</span></div>
+        <div class="schema-row" style="flex-direction:column; align-items:flex-start; gap:4px;">
+          <span class="schema-field" style="color:var(--teal);">Flow</span>
+          <span class="schema-type">เปิด LIFF → เลือกปั๊ม → เลือก fuel type → เลือก report type</span>
+        </div>
+        <div class="schema-row" style="flex-direction:column; align-items:flex-start; gap:4px;">
+          <span class="schema-field">Submit</span>
+          <span class="schema-type">POST /api/fuel/reports (ใช้ LIFF userId แทน Auth)</span>
+        </div>
+        <div class="schema-row" style="flex-direction:column; align-items:flex-start; gap:4px;">
+          <span class="schema-field">Confirm</span>
+          <span class="schema-type">liff.sendMessages() ส่ง confirm message กลับใน chat</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Updated Tech Stack -->
+    <h3>เพิ่มเติมใน Tech Stack</h3>
+    <div class="tech-grid" style="grid-template-columns:repeat(3,1fr);">
+      <div class="tech-card">
+        <div class="tech-cat">Line Messaging</div>
+        <div class="tech-name">@line/bot-sdk</div>
+        <div class="tech-note">Node.js SDK — verify signature, build Flex Message, reply/push</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-cat">LIFF</div>
+        <div class="tech-name">@line/liff</div>
+        <div class="tech-note">In-app browser SDK — getUserProfile, sendMessages, getLocation</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-cat">Map (Static)</div>
+        <div class="tech-name">Mapbox Static API</div>
+        <div class="tech-note">สร้าง hero image ปั๊มน้ำมันสำหรับ Flex Message (URL-based)</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p>
+        <strong>ข้อควรระวัง:</strong> Line Webhook ต้อง respond <code style="font-family:monospace;font-size:12px;">200 OK</code> ภายใน 30 วินาที
+        หากต้องการ query ข้อมูลที่ใช้เวลานาน (เช่น หาปั๊มจาก location) ควรตอบ 200 ก่อน
+        แล้วค่อย push message ตาม userId ด้วย <strong>Push Message API</strong> แทน Reply Token
+      </p>
+    </div>
+  </div>
+
+  <!-- 08 Out of Scope -->
+  <div class="section">
+    <div class="section-label">08 — Boundaries</div>
+    <h2>ขอบเขตที่ไม่รวมใน MVP</h2>
+    <p>สิ่งเหล่านี้อยู่ใน Roadmap แต่ไม่ถูกนำมาพัฒนาใน MVP รอบนี้</p>
+    <div class="feature-block">
+      <div class="feature-body">
+        <ul class="feature-list">
+          <li>Push Notification / Line Notify เมื่อน้ำมันหมดในพื้นที่ (v2)</li>
+          <li>Disaster / Flood Layer — ข้อมูลภัยพิบัติจากหน่วยงานภายนอก (v2)</li>
+          <li>Navigation / Routing ไปยังปั๊ม (อาจใช้ Deep link ไป Google Maps แทน)</li>
+          <li>User Account สำหรับประชาชน (Favorite stations, Report history)</li>
+          <li>Analytics Dashboard สำหรับ Admin (Station usage, Report trends)</li>
+          <li>Mobile Native App (iOS/Android) — MVP จะเป็น PWA ก่อน</li>
+          <li>Multi-language (EN/TH) — MVP เป็น TH เท่านั้น</li>
+          <li>Station Image Upload / Gallery</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:32px;">
+      <p>
+        <strong>Environment Variables ที่ต้องเตรียมก่อน Sprint 1:</strong><br>
+        Thunder Core: <code style="font-family:monospace; font-size:11px;">NEXT_PUBLIC_SUPABASE_URL</code> · <code style="font-family:monospace; font-size:11px;">NEXT_PUBLIC_SUPABASE_ANON_KEY</code> · <code style="font-family:monospace; font-size:11px;">THUNDER_CORE_BASE_URL</code> · <code style="font-family:monospace; font-size:11px;">SUPABASE_SERVICE_ROLE_KEY</code><br>
+        Map: <code style="font-family:monospace; font-size:11px;">NEXT_PUBLIC_MAPBOX_TOKEN</code><br>
+        Line OA: <code style="font-family:monospace; font-size:11px;">LINE_CHANNEL_ACCESS_TOKEN</code> · <code style="font-family:monospace; font-size:11px;">LINE_CHANNEL_SECRET</code> · <code style="font-family:monospace; font-size:11px;">LINE_LIFF_ID</code>
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <div class="footer-logo">City<em>Zen</em></div>
+  <div class="footer-meta">
+    Thunder Core Platform · MVP Proposal v1.0<br>
+    30 มีนาคม 2569 · thundercore.vercel.app
+  </div>
+</div>
+
+</body>
+</html>
